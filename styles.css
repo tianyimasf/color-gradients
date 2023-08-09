@@ -1,0 +1,68 @@
+body {
+  background-color: #141414;
+  color: #f4f6f8;
+  font-family: "Open Sans", sans-serif;
+}
+
+h2 {
+  margin-top: 50px;
+}
+
+p {
+  font-size: 16px;
+}
+
+a {
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #f9fafb;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+}
+
+#canvas {
+  height: 85%;
+  width: 80%;
+  margin: 0px;
+  margin-left: 0px;
+  float: left;
+}
+
+.canvas-and-control-panel {
+  display: flex;
+  flex-direction: row;
+}
+
+.control_panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 20%;
+  margin-left: 8px;
+  float: right;
+}
+
+.control_buttons {
+  display: flex;
+}
+
+.control_play {
+  margin-left: 5vh;
+  margin-right: 2vh;
+  margin-top: 2vh;
+  flex-grow: 1;
+  color: black;
+}
+
+.control_stop {
+  margin-left: 2vh;
+  margin-right: 5vh;
+  margin-top: 2vh;
+  flex-grow: 1;
+  color: black;
+}

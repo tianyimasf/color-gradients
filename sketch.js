@@ -12,7 +12,18 @@ let mode1 = 0;
 let mode2 = 1;
 
 function setup() {
-  createCanvas(1000, 600);
+  let canvasDiv = document.getElementById("canvas");
+  let canvasWidth = canvasDiv.offsetWidth;
+
+  let canvasDivClone = canvasDiv.cloneNode(true);
+  canvasDivClone.style.visibility = "hidden";
+  document.body.appendChild(canvasDivClone);
+  let canvasHeight = canvasDivClone.offsetHeight + 0;
+  document.body.removeChild(canvasDivClone);
+  canvasDivClone.style.visibility = "visible";
+
+  let renderer = createCanvas(canvasWidth, canvasHeight);
+  renderer.parent("canvas");
   color1 = color(255, 173, 173); // red pink
   color2 = color(160, 196, 255); // purple blue
   color3 = color(155, 246, 255); // green blue
@@ -22,18 +33,6 @@ function setup() {
 
 function draw() {
   let playing = false;
-
-  button = createButton("play");
-  button.position(0, 0);
-  button.mouseClicked(() => {
-    playing = true;
-  });
-
-  button = createButton("stop");
-  button.position(50, 0);
-  button.mouseClicked(() => {
-    playing = true;
-  });
 
   //console.log("playing");
   //console.log(cornerColors);
@@ -190,7 +189,6 @@ function getBezierParams(mode1, mode2, cornerColor, initial, controlPoint3) {
       blue(cornerColor) + (blue(cornerColor) - blue(controlPoint3)) * corner;
     controlColor1 = color(colorRed, colorGreen, colorBlue);
   } else {
-    console.log("RANDOM");
     controlColor1 = getRandomColor();
   }
 
