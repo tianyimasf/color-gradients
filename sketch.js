@@ -8,8 +8,10 @@ let color2;
 let color3;
 let color4;
 let cornerColors;
+let timeStepCornerColors;
 let mode1 = 0;
 let mode2 = 1;
+let playing = false;
 
 function setup() {
   let canvasDiv = document.getElementById("canvas");
@@ -29,15 +31,26 @@ function setup() {
   color3 = color(155, 246, 255); // green blue
   color4 = color(253, 255, 182); // yellow
   cornerColors = [color1, color2, color3, color4];
+  timeStepCornerColors = cornerColors;
 }
 
 function draw() {
-  let playing = false;
-
-  //console.log("playing");
-  //console.log(cornerColors);
-  const { currCornerColors, newControlPoint3List, currControlPointsList } =
-    drawNewPixels(
+  if (!playing) {
+    drawPixels(
+      timeStepCornerColors[0],
+      timeStepCornerColors[1],
+      timeStepCornerColors[2],
+      timeStepCornerColors[3],
+      width,
+      height
+    );
+  } else if (playing) {
+    const {
+      currCornerColors,
+      newControlPoint3List,
+      currControlPointsList,
+      timeStepCornerColors: thisTimeStepCornerColors,
+    } = drawNewPixels(
       mode1,
       mode2,
       cornerColors,
@@ -47,14 +60,16 @@ function draw() {
       t,
       steps
     );
-  cornerColors = currCornerColors;
-  controlPoint3s = newControlPoint3List;
-  controlPointsList = currControlPointsList;
-  mode1 = (mode1 + 1) % 3;
-  mode2 = (mode2 + 1) % 3;
-  t = (t + 1) % steps;
-  if (initial) {
-    initial = false;
+    cornerColors = currCornerColors;
+    controlPoint3s = newControlPoint3List;
+    controlPointsList = currControlPointsList;
+    timeStepCornerColors = thisTimeStepCornerColors;
+    mode1 = (mode1 + 1) % 3;
+    mode2 = (mode2 + 1) % 3;
+    t = (t + 1) % steps;
+    if (initial) {
+      initial = false;
+    }
   }
 }
 
@@ -170,6 +185,7 @@ function drawNewPixels(
     currCornerColors,
     newControlPoint3List,
     currControlPointsList: controlPointsList,
+    timeStepCornerColors: newCornerColors,
   };
 }
 
@@ -224,4 +240,48 @@ function getRandomInt(max) {
 
 function getRandomColor() {
   return color(getRandomInt(255), getRandomInt(255), getRandomInt(255));
+}
+
+function play() {
+  playing = true;
+  document.getElementById("color_tl").disabled = true;
+  document.getElementById("color_tr").disabled = true;
+  document.getElementById("color_bl").disabled = true;
+  document.getElementById("color_br").disabled = true;
+}
+
+function stop() {
+  playing = false;
+  document.getElementById("color_tl").disabled = false;
+  document.getElementById("color_tr").disabled = false;
+  document.getElementById("color_bl").disabled = false;
+  document.getElementById("color_br").disabled = false;
+}
+
+function updateCornerColor() {
+  const color_tl = hexToRgb(document.getElementById("color_tl").value);
+  const color_tr = hexToRgb(document.getElementById("color_tr").value);
+  const color_bl = hexToRgb(document.getElementById("color_bl").value);
+  const color_br = hexToRgb(document.getElementById("color_br").value);
+  color1 = color(color_tl[0], color_tl[1], color_tl[2]);
+  color2 = color(color_tr[0], color_tr[1], color_tr[2]);
+  color3 = color(color_bl[0], color_bl[1], color_bl[2]);
+  color4 = color(color_br[0], color_br[1], color_br[2]);
+
+  t = 0;
+  controlPoint3s = [];
+  controlPointsList = [];
+  initial = true;
+  mode1 = 0;
+  mode2 = 1;
+  cornerColors = [color1, color2, color3, color4];
+  timeStepCornerColors = cornerColors;
+}
+
+function hexToRgb(hex) {
+  const colorRed = parseInt(hex.substring(1, 3), 16);
+  const colorGreen = parseInt(hex.substring(3, 5), 16);
+  const colorBlue = parseInt(hex.substring(5, 7), 16);
+
+  return [colorRed, colorGreen, colorBlue];
 }

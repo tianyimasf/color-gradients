@@ -5,7 +5,7 @@ body {
 }
 
 h2 {
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 p {
@@ -26,7 +26,7 @@ main {
 }
 
 #canvas {
-  height: 85%;
+  height: 80%;
   width: 80%;
   margin: 0px;
   margin-left: 0px;
@@ -65,4 +65,22 @@ main {
   margin-top: 2vh;
   flex-grow: 1;
   color: black;
+}
+
+.control_color_pickers {
+  margin-top: 20px;
+  margin-left: 15px;
+}
+
+.color_picker {
+  display: flex;
+  margin-top: 10px;
+}
+
+.color_picker_label {
+  margin-right: 10px;
+}
+
+.btn-apply {
+  margin-top: 10px;
 }

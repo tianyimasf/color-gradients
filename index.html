@@ -20,7 +20,10 @@
       <h2>🌈 Moving Colors</h2>
       <p>
         A automatic, smooth color changing canvas governed by semi-random bezier
-        curves and bilinear interpolation.
+        curves and bilinear interpolation. <br />
+        Feel free to start by clicking "Play" and stop at anytime. You can also
+        change corner color setup when the animation is paused. Corner Color
+        changing will be disabled when animation is playing.
       </p>
       <a href="https://github.com/tianyimasf/color-gradients"
         >View Source Code on GitHub</a
@@ -29,12 +32,67 @@
         <div id="canvas"></div>
         <div class="control_panel">
           <div class="control_buttons">
-            <button type="button" class="btn btn-light control_play">
+            <button
+              type="button"
+              class="btn btn-light control_play"
+              onclick="play()"
+            >
               Play
             </button>
-            <button type="button" class="btn btn-light control_stop">
+            <button
+              type="button"
+              class="btn btn-light control_stop"
+              onclick="stop()"
+            >
               Stop
             </button>
+          </div>
+          <div class="control_color_pickers">
+            <div class="color_picker">
+              <p class="color_picker_label">Top Left Corner Color:</p>
+              <input
+                type="color"
+                id="color_tl"
+                name="color_tl"
+                value="#ffadad"
+              />
+            </div>
+            <div class="color_picker">
+              <p class="color_picker_label">Top Right Corner Color:</p>
+              <input
+                type="color"
+                id="color_tr"
+                name="color_tr"
+                value="#a0c4ff"
+              />
+            </div>
+            <div class="color_picker">
+              <p class="color_picker_label">Bottom Left Corner Color:</p>
+              <input
+                type="color"
+                id="color_bl"
+                name="color_bl"
+                value="#9bf6ff"
+              />
+            </div>
+            <div class="color_picker">
+              <p class="color_picker_label">Bottom Right Corner Color:</p>
+              <input
+                type="color"
+                id="color_br"
+                name="color_br"
+                value="#fdffb6"
+              />
+            </div>
+            <div class="text-center">
+              <button
+                type="button"
+                class="btn btn-light btn-apply"
+                onclick="updateCornerColor()"
+              >
+                Apply
+              </button>
+            </div>
           </div>
         </div>
       </div>
