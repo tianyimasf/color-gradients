@@ -1,3 +1,3 @@
 # color-gradients
 ---
-color changing rest screen programmatically generated.
+color changing rest screen programmatically generated guided by semi-random Bezier curves.
